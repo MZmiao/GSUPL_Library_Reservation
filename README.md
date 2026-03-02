@@ -1,26 +1,32 @@
-# GSUPL 图书馆座位自动预约脚本
+# 图书馆座位自动预约脚本
 
-一个用于甘肃政法（GSUPL）图书馆座位系统的自动抢座 Python 脚本。  
-支持定时启动、自动重试、根据服务器冷却时间智能等待、登录态检测、邮件通知等功能。
-
-**当前版本已重点优化安全性与稳定性（2025–2026 年适用）**
+这是一个用于自动预约广州工商学院（gsupl）图书馆座位的Python脚本，支持定时执行、失败重试、登录状态检测和邮件通知功能。
 
 ## 功能特点
-
-- 每天 7:59 和 16:59 自动启动抢座（上午场 / 下午场）
-- 使用环境变量存储学号、密码、邮件信息（更安全）
-- 自动检测 session 是否失效并重新登录
-- 根据服务器返回的“请 xx 分 xx 秒后重试”智能 sleep
-- requests 内置重试 + 超时机制，应对网络波动
-- 预约成功 / 失败 都会发送邮件通知（支持 QQ 邮箱）
-- 所有座位参数集中配置，便于更新
+- 🕒 **定时预约**：支持每天定点自动执行预约任务
+- 🔄 **自动重试**：预约失败时自动重试，并解析服务器冷却时间
+- 🔐 **登录保活**：检测登录状态失效时自动重新登录
+- 📧 **邮件通知**：预约成功/失败后自动发送邮件提醒
+- 🛡️ **网络容错**：内置请求重试机制，应对网络波动
 
 ## 环境要求
+- Python 3.7+
+- 所需依赖包：
+  ```bash
+  pip install requests apscheduler urllib3
 
-- Python 3.8+
-- 依赖库（建议使用虚拟环境）
+### 1. 环境变量配置（推荐）
+为了安全，建议通过环境变量设置敏感信息：
 
 ```bash
-pip install requests apscheduler urllib3
+# Linux/Mac
+export LIBRARY_USERNAME="你的学号"
+export LIBRARY_PASS_BASE64="base64编码后的密码"
+export NOTIFY_EMAIL="你的QQ邮箱地址"
+export NOTIFY_EMAIL_AUTH="QQ邮箱授权码"
 
-
+# Windows (PowerShell)
+$env:LIBRARY_USERNAME="你的学号"
+$env:LIBRARY_PASS_BASE64="base64编码后的密码"
+$env:NOTIFY_EMAIL="你的QQ邮箱地址"
+$env:NOTIFY_EMAIL_AUTH="QQ邮箱授权码"
