@@ -30,6 +30,7 @@ $env:LIBRARY_USERNAME="你的学号"
 $env:LIBRARY_PASS_BASE64="base64编码后的密码"
 $env:NOTIFY_EMAIL="你的QQ邮箱地址"
 $env:NOTIFY_EMAIL_AUTH="QQ邮箱授权码"
+```
 
 
 ### 2. 脚本内部配置
@@ -55,7 +56,7 @@ $env:NOTIFY_EMAIL_AUTH="QQ邮箱授权码"
 如需修改时间，调整以下代码：
 ```python
 scheduler.add_job(job_func, 'cron', hour='7,16', minute=59, second=3)
-
+```
 
 - `hour`：小时（24 小时制）
 - `minute`：分钟
@@ -65,16 +66,16 @@ scheduler.add_job(job_func, 'cron', hour='7,16', minute=59, second=3)
 ### 直接运行
 ```bash
 python library_seat_reserve.py
-
+```
 
 ### 后台运行
 ```bash
 nohup python library_seat_reserve.py > reserve.log 2>&1 &
-
+```
 ### 查看日志
 ```bash
 tail -f reserve.log
-
+```
 ## 常见问题
 ### Q1: 登录失败怎么办？
 - 检查学号和 base64 编码的密码是否正确
